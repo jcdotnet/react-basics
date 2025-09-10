@@ -81,17 +81,18 @@ export const reveal = (grid: GameGrid, row: number, col: number) => {
     while (stack.length > 0) {
       const [ row, col ] = stack.pop()!;
       gameCell = grid[row][col];
-      if (gameCell.value === 0) {
-        const adjacentCells = getAdjacentCells(grid, [row, col]);
-        adjacentCells.forEach( adj => {
-          if (!grid[adj[0]][adj[1]].opened /* && !grid[adj[0]][adj[1]].flagged */) 
-            stack.push(adj);
-        });
-        gameCell.opened = true;   
+      if (gameCell.value < 9) {
+        gameCell.opened = true;
+        gameCell.cssClass = CELL_STRING[gameCell.value];
+        if (gameCell.value === 0 ) {
+          const adjacentCells = getAdjacentCells(grid, [row, col]);
+          adjacentCells.forEach( adj => {
+            if (!grid[adj[0]][adj[1]].opened /* && !grid[adj[0]][adj[1]].flagged */) 
+              stack.push(adj);
+          });
+        }
       }
     }
-    gameCell.cssClass = CELL_STRING[gameCell.value];
-    gameCell.opened = true;
   }
 }
 
