@@ -1,0 +1,8 @@
+.counter {
+    display: flex;
+}
+.counter > .counter-img {
+    height: 40px;
+    padding: 1px;
+    background-color: #600000;
+}

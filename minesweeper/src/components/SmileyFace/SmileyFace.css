@@ -1,0 +1,11 @@
+.smiley-box {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; /* */
+}
+
+.smiley-face {
+    display: block;
+    width: 30px;
+    height: 30px
+}

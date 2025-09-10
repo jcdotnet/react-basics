@@ -1,0 +1,15 @@
+.game-box {
+    border-style: solid;
+}
+.inset {
+    border-top-color: gray;
+    border-bottom-color: white;
+    border-right-color: white;
+    border-left-color: grey;
+}
+.outset {
+    border-top-color: white;
+    border-bottom-color: grey;
+    border-right-color: grey;
+    border-left-color: white;
+}

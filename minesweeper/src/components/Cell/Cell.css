@@ -1,0 +1,60 @@
+/*
+Cell text color
+1: Blue
+2: Green
+3: Red
+4: Dark purple
+5: Maroon
+6: Cyan
+7: Purple or gray
+8: Gray or light gray
+*/
+.cell.one {
+    color: blue;
+}
+.cell.two {
+    color: green;
+}
+.cell.three {
+    color: red;
+}
+.cell.four {
+    color: purple;
+}
+.cell.five {
+    color: maroon;
+}
+.cell.six {
+    color: cyan;
+}
+.cell.six {
+    color: gray;
+}
+.cell.eight {
+    color: lightgray;
+}
+.cell.green {
+    background-color: green;
+}
+.cell.red {
+    background-color: red;
+}
+.cell.hidden {
+    background-image: url('/images/cell.png');
+    background-size: cover;
+}
+.cell:not(.hidden) {
+    font-weight: bold;
+    border: solid 1px gray;
+}
+.cell.hidden .content {
+    display: none;
+}
+.cell>img.content {
+    max-width: 70%;
+}
+.cell>img.flag {
+    max-width: 100%;
+}
+
+
