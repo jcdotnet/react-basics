@@ -45,7 +45,7 @@ function App() {
           status: 'over'
         };
       }
-      reveal(prevGame.grid, row, col);
+      reveal(prevGame, row, col);
       if (gameWon(prevGame.grid, game.mode)) {
         revealMines(prevGame.grid, 'green');
         return {

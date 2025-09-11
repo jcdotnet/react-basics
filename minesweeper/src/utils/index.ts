@@ -1,10 +1,10 @@
 import { CELL_STRING, GAME_CONFIG, getEmptyGrid } from '../data';
-import type { CellPosition, CellValue, GameMode, GameGrid, GameCell} from '../types';
+import type { CellPosition, CellValue, Game, GameMode, GameGrid } from '../types';
 
 const getAdjacentCells = (grid:GameGrid, cell: CellPosition): number[][]  => {
-    return [[0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1]]
-      .map( ([x,y]) => ([cell[0]+x, cell[1]+y]) )
-      .filter( ([x,y]) => x in grid && y in grid[x]) 
+  return [[0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1]]
+    .map( ([x,y]) => ([cell[0]+x, cell[1]+y]) )
+    .filter( ([x,y]) => x in grid && y in grid[x]) 
 }
 
 const setMines = (grid: GameGrid, rows: number, cols: number, mines: number, initialClick?:CellPosition) => {
@@ -74,23 +74,24 @@ export const initialize = (emptyGrid: GameGrid, level: GameMode, initialClick?: 
   setMines(emptyGrid, config.rows, config.cols, config.mines, initialClick);
 }
 
-export const reveal = (grid: GameGrid, row: number, col: number) => {
-  let gameCell: GameCell = grid[row][col];
-  if (typeof gameCell.value === 'number') {
-    const stack = [[row, col]]; // only clicked position in the array
-    while (stack.length > 0) {
-      const [ row, col ] = stack.pop()!;
-      gameCell = grid[row][col];
-      if (gameCell.value < 9) {
-        gameCell.opened = true;
-        gameCell.cssClass = CELL_STRING[gameCell.value];
-        if (gameCell.value === 0 ) {
-          const adjacentCells = getAdjacentCells(grid, [row, col]);
-          adjacentCells.forEach( adj => {
-            if (!grid[adj[0]][adj[1]].opened /* && !grid[adj[0]][adj[1]].flagged */) 
-              stack.push(adj);
-          });
-        }
+export const reveal = (game: Game, row: number, col: number) => {
+  const stack = [[row, col]]; // only clicked position in the array
+  while (stack.length > 0) {
+    const [ row, col ] = stack.pop()!;
+    const gameCell = game.grid[row][col];
+    if (gameCell.value < 9) {
+      gameCell.opened = true;
+      if (gameCell.flagged) {
+        gameCell.flagged = false;
+        game.flags --;
+      }
+      gameCell.cssClass = CELL_STRING[gameCell.value];
+      if (gameCell.value === 0 ) {
+        const adjacentCells = getAdjacentCells(game.grid, [row, col]);
+        adjacentCells.forEach( adj => {
+          if (!game.grid[adj[0]][adj[1]].opened) 
+            stack.push(adj);
+        });
       }
     }
   }
