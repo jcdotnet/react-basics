@@ -69,12 +69,14 @@ function App() {
         newGrid[row][col].flagged = !newGrid[row][col].flagged;
         newGrid[row][col].flagged ? flagsCount++ : flagsCount--
         if (gameWon(newGrid, game.mode)) {
+          prevGame.status = 'won';
           revealMines(newGrid, 'green');
         }
         return {
           ...prevGame,
           grid: newGrid,
-          flags: prevGame.flags + flagsCount
+          flags: prevGame.flags + flagsCount,
+          status: prevGame.status
         }
       });
     }
