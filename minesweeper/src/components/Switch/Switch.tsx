@@ -16,7 +16,7 @@ const Switch = () => {
     <div className="switch-container">
       <img src={darkMode} className="switch-image" alt="Dark Mode"/>
       <label className="switch">
-        <input type="checkbox" onChange={handleChange} checked={theme === 'dark'}/>
+        <input name="checkbox" type="checkbox" onChange={handleChange} checked={theme === 'dark'}/>
         <span className="slider"></span>
       </label>
       

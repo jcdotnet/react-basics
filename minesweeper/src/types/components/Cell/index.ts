@@ -1,4 +1,4 @@
-import type { GameCell } from "../..";
+import type { GameCell } from '../..';
 
 export default interface CellProps {
   info: GameCell;

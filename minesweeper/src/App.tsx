@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { GAME_CONFIG } from './data';
 import { createGrid, gameWon, initialize, reveal, revealMines } from './utils';
 import type { Game, GameMode } from './types';
 
 import Border from './components/Border/Border';
 import Header from './components/Header/Header';
+import ModeSelect from './components/ModeSelect/ModeSelect';
+import SizeSelect from './components/SizeSelect/SizeSelect';
 import Switch from './components/Switch/Switch';
 import Grid from './components/Grid/Grid'
 import './App.css'
@@ -16,7 +17,8 @@ function App() {
     grid: createGrid('easy'),
     mode: 'easy',
     status: 'initial',
-  });  
+  });
+  const [size, setSize] = useState<string>('2rem')  
 
   const handleClick = (row: number, col: number) => {
     if (game.grid[row][col].flagged || game.grid[row][col].opened
@@ -91,6 +93,14 @@ function App() {
     });
   }
 
+  const handleModeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    handleMode(event.target.value as GameMode);
+  }
+
+  const handleSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSize(event.target.value);
+  }
+
   const handleSmiley = () => {
     handleMode(game.mode);
   }
@@ -98,21 +108,17 @@ function App() {
   return (
     <div className="game">
       <div className="game-menu">
-        <ul className="game-modes">
-          {Object.keys(GAME_CONFIG).map(mode => (
-            <li key={mode} onClick={() => handleMode(mode as GameMode)}>
-              {mode.charAt(0).toUpperCase() + mode.slice(1)}
-            </li>
-          ))}
-        </ul>
+        <ModeSelect selectOnChange={handleModeChange}/>
+        <SizeSelect selectOnChange={handleSizeChange}/>
         <Switch />
       </div>
-      <div className="game-board">
+      <div className="game-board" style={{'--cell-size': size} as React.CSSProperties}>
         <Border borderStyle="outset">
           <Header game={game} smileyOnClick={handleSmiley} />
           <Border padding="0">
             <Grid grid={game.grid}
-              cellOnClick={handleClick} cellOnContextMenu={handleContextMenu} />
+              cellOnClick={handleClick} 
+              cellOnContextMenu={handleContextMenu} />
           </Border>
         </Border>
       </div>

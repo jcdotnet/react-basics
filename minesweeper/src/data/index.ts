@@ -1,6 +1,15 @@
 import { convertToGrid } from "../utils";
 import type { CellValue, GameGrid } from "../types";
 
+export const CELL_SIZES = [
+  { key: 'XS', value: '1.5rem' },
+  { key: 'S', value: '1.8rem' },
+  { key: 'M', value: '2rem' },
+  { key: 'L', value: '2.2rem' },
+  { key: 'XL', value: '2.4rem' },
+  { key: 'XXL', value: '2.8rem' },
+]
+
 export const CELL_STRING = [
   'empty',
   'one',
@@ -16,12 +25,12 @@ export const CELL_STRING = [
 
 export const getEmptyGrid = (rows: number, cols: number): GameGrid => {
   const grid: CellValue[][] = [];
-  for (let i=0; i<rows; i++) {
+  for (let i = 0; i < rows; i++) {
     grid[i] = [];
-    for (let j=0; j<cols; j++) grid[i][j] = 0;
+    for (let j = 0; j < cols; j++) grid[i][j] = 0;
   }
   return convertToGrid(grid);
-} 
+}
 /*
   Minesweeper difficulty levels determine the grid size and the number of hidden mines (bombs). 
   Standard difficulty levels include Beginner (e.g., 9x9 grid with 10 mines), 

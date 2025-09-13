@@ -9,17 +9,6 @@
   font-weight: 500;
 }
 
-.game-modes {
-  display: flex;
-  list-style-type: none;
-  padding-left: 0;
-  gap: 1rem;
-}
-
-.game-modes > li {
-  cursor: pointer;
-}
-
 .game-board {
   background-color: silver; /* #ccc */
   overflow-x: auto;

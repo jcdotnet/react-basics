@@ -1,0 +1,11 @@
+.size-select {
+    display:flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.select-image {
+    display: block;
+    width: 20px;
+    height: 20px
+}
