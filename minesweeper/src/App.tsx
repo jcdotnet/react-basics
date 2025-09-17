@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { ALIGNMENT } from './data';
 import { createGrid, gameWon, initialize, reveal, revealMines } from './utils';
 import type { Game, GameMode } from './types';
 
 import Border from './components/Border/Border';
 import Header from './components/Header/Header';
+import Select from './components/Select/Select';
 import ModeSelect from './components/ModeSelect/ModeSelect';
 import SizeSelect from './components/SizeSelect/SizeSelect';
 import Switch from './components/Switch/Switch';
@@ -84,6 +86,12 @@ function App() {
     }
   }
 
+  const handleAlignmentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const element = document.getElementById('root');
+    element?.classList.remove(...element.classList);
+    element?.classList.add(event.target.value);
+  }
+
   const handleMode = (mode: GameMode) => {
     setGame({
       flags: 0,
@@ -108,19 +116,24 @@ function App() {
   return (
     <div className="game">
       <div className="game-menu">
-        <ModeSelect selectOnChange={handleModeChange}/>
-        <SizeSelect selectOnChange={handleSizeChange}/>
+        <ModeSelect selectOnChange={handleModeChange} />
+        <Select values={ALIGNMENT} selectOnChange={handleAlignmentChange} />
+        <SizeSelect selectOnChange={handleSizeChange} />
         <Switch />
       </div>
-      <div className="game-board" style={{'--cell-size': size} as React.CSSProperties}>
+      <div className="game-board" style={{ '--cell-size': size } as React.CSSProperties}>
         <Border borderStyle="outset">
           <Header game={game} smileyOnClick={handleSmiley} />
           <Border padding="0">
             <Grid grid={game.grid}
-              cellOnClick={handleClick} 
+              cellOnClick={handleClick}
               cellOnContextMenu={handleContextMenu} />
           </Border>
         </Border>
+      </div> 
+      <div>
+        <span>Full source code is available </span>
+        <a href="https://github.com/jcdotnet/react-basics/tree/main/minesweeper">here.</a>
       </div>
     </div>
   )

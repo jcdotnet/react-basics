@@ -1,6 +1,12 @@
 import { convertToGrid } from "../utils";
 import type { CellValue, GameGrid } from "../types";
 
+export const ALIGNMENT = [
+  { key: '<', value: 'left' },
+  { key: '|', value: 'center' }, 
+  { key: '>', value: 'right' }
+];
+
 export const CELL_SIZES = [
   { key: 'XS', value: '1.5rem' },
   { key: 'S', value: '1.8rem' },
